@@ -11,7 +11,7 @@ namespace HelpDesk.Service.Services.Common
     public class ImageService : IImageService
     {
         private readonly IHostingEnvironment _hostingEnvironment;
-
+        //Hello Ahmed
         public ImageService(IHostingEnvironment hostingEnvironment)
         {
             _hostingEnvironment = hostingEnvironment;
