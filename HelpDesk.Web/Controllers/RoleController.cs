@@ -11,7 +11,7 @@ namespace HelpDesk.Web.Controllers
     {
         private readonly IRoleService _roleService;
 
-        // Edit Role Controller By Mosa 
+        // Edit Role Controller By Mosa Alhaj Ahmad
         public RoleController(IRoleService roleService)
         {
             _roleService = roleService;
