@@ -15,6 +15,7 @@ namespace HelpDesk.Web.Controllers
 
         public HomeController(ILogger<HomeController> logger)
         {
+            //ss
             _logger = logger;
         }
 
