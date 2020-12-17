@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "AddFile";
+}
+
+<h1>Add File</h1>
+
+
+<form method="post" asp-action="AddFile" enctype="multipart/form-data">
+    <input type="hidden" name="Id" value="@ViewBag.Id"/>
+    <input name="file" type="file" />
+    <input type="submit" />
+</form>

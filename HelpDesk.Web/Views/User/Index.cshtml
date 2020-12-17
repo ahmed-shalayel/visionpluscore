@@ -1,0 +1,94 @@
+﻿@model IEnumerable<HelpDesk.Data.ViewModel.UserViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-custom gutter-b example example-compact">
+            <div class="card-header">
+                <h3 class="card-title">All Users!</h3>
+                <div class="card-toolbar">
+                    <div class="example-tools justify-content-center">
+                        <a class="btn btn-primary" href="~/User/Create">Add New</a>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div id="kt_datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+
+                    @if (Model.Any())
+                    {
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered table-checkable dataTable no-footer dtr-inline">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col">UserImage</th>
+                                            <th scope="col">Full Name </th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Phone</th>
+                                            <th scope="col">Employee Number</th>
+                                            <th scope="col">Operation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var user in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <a href="#" class="avatar rounded-circle mr-3">
+                                                        <img alt="User Image" src="@user.UserImage">
+                                                    </a>
+                                                </td>
+                                                <th scope="row">
+                                                    <div class="media align-items-center">
+
+                                                        <div class="media-body">
+                                                            <span class="mb-0 text-sm">@user.FullName</span>
+                                                        </div>
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <span class="mb-0 text-sm">@user.Email</span>
+                                                </td>
+                                                <td>
+                                                    <span class="mb-0 text-sm">@user.Phone</span>
+
+                                                <td>
+                                                    <span class="mb-0 text-sm">@user.EmployeeNumber</span>
+                                                </td>
+
+                                                <td >
+                                                 
+                                                            <a class="btn btn-warning" href="~/User/Edit/@user.Id">Edit</a>
+                                                            <a class="btn btn-danger" href="~/User/Delete/@user.Id">Delete</a>
+
+                                                      
+                                                </td>
+                                            </tr>
+                                        }
+
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+

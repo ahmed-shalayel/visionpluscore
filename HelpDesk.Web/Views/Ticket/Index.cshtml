@@ -1,0 +1,200 @@
+﻿@model HelpDesk.Data.ViewModel.PagingViewModel
+@{
+    ViewData["Title"] = "Index";
+    List<HelpDesk.Data.ViewModel.TicketViewModel> tickets = (List<HelpDesk.Data.ViewModel.TicketViewModel>)Model.Data;
+    var nextPage = Model.CurrentPage + 1;
+    var privusPage = Model.CurrentPage - 1;
+}
+
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-custom gutter-b example example-compact">
+            <div class="card-header">
+                <h3 class="card-title">All Ticketes!</h3>
+                <div class="card-toolbar">
+                    <div class="example-tools justify-content-center">
+                        <a class="btn btn-primary" href="~/Ticket/Create">Add New</a>
+                        @*<span class="example-toggle" data-toggle="tooltip" title="" data-original-title="View code"></span>
+                        <span class="example-copy" data-toggle="tooltip" title="" data-original-title="Copy code"></span>*@
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div id="kt_datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+
+
+    <form method="get" asp-action="Index">
+        <div class="row">
+            <div class="col-md-4">
+                <input value="@ViewBag.searchName" name="name" placeholder="Search By Name" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <select name="status" class="form-control">
+                    <option value="">Select Status</option>
+                    <option value="1">Pending</option>
+                    <option value="2">Approved</option>
+                    <option value="3">Rejected</option>
+                    <option value="4">InProgress</option>
+                    <option value="5">OnHold</option>
+                    <option value="6">OnRivew</option>
+                    <option value="7">Done</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <select asp-items="@ViewBag.departemnts" name="departmentId" class="form-control">
+
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <input class="btn btn-primary" type="submit" value="Go" />
+            </div>
+        </div>
+    </form>
+
+    @if (tickets.Any())
+    {
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered table-checkable dataTable no-footer dtr-inline">
+                <thead class="thead-light">
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Department
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Employee
+                        </th>
+                        <th>
+                            Operation
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in tickets)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedAt)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Department.Name)
+                        </td>
+                        <td>
+                            @switch (item.TicketStatus)
+                            {
+                                case HelpDesk.Data.Enums.TicketStatus.Pending:
+                                    <p class="text-secondary">Pending</p>
+                                    break;
+                                case HelpDesk.Data.Enums.TicketStatus.Approved:
+                                    <p class="text-primary">Approved</p>
+                                    break;
+                                case HelpDesk.Data.Enums.TicketStatus.Rejected:
+                                    <p class="text-danger">Rejected</p>
+                                    break;
+                                case HelpDesk.Data.Enums.TicketStatus.InProgress:
+                                    <p class="text-info">InProgress</p>
+                                    break;
+                                case HelpDesk.Data.Enums.TicketStatus.OnHold:
+                                    <p class="text-warning">OnHold</p>
+                                    break;
+                                case HelpDesk.Data.Enums.TicketStatus.OnRivew:
+                                    <p class="text-success">OnRivew</p>
+                                    break;
+                                case HelpDesk.Data.Enums.TicketStatus.Done:
+                                    <p class="text-success">Done</p>
+                                    break;
+                            }
+
+                        </td>
+
+                        <td>
+                            @item.FromUser.FullName
+                        </td>
+
+
+                        <td>
+                            <a href="~/Ticket/Delete/@item.Id" class="btn btn-danger">Delete</a>
+                            <a href="~/Ticket/Edit/@item.Id" class="btn btn-info">Edit</a>
+                            <a href="~/Ticket/AddFile/@item.Id" class="btn btn-primary">AddFile</a>
+                             <a href="~/Ticket/GetFile/@item.Id" class="btn btn-warning">Show File</a>
+                            <a href="~/Ticket/GetTimeLine/@item.Id" class="btn btn-info">Time Line</a>
+                        </td>
+
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+
+                    @if (Model.CurrentPage == 1)
+                    {
+                        <li class="page-item disabled"><a class="page-link">Previous</a></li>
+
+                    }
+                    else
+                    {
+                        <li class="page-item"><a class="page-link" href="~/Ticket/Index?pageNumber=@privusPage">Previous</a></li>
+
+                    }
+
+                    @for (int i = 1; i <= Model.NumberOfPages; i++)
+                    {
+                        if (i == Model.CurrentPage)
+                        {
+                            <li class="page-item active"><a class="page-link" href="~/Ticket/Index?pageNumber=@i">@i</a></li>
+                        }
+                        else
+                        {
+                            <li class="page-item"><a class="page-link" href="~/Ticket/Index?pageNumber=@i">@i</a></li>
+                        }
+
+                    }
+
+                    @if (Model.CurrentPage == Model.NumberOfPages)
+                    {
+                        <li class="page-item disabled"><a class="page-link">Next</a></li>
+
+                    }
+                    else
+                    {
+                        <li class="page-item"><a class="page-link" href="~/Ticket/Index?pageNumber=@nextPage">Next</a></li>
+
+                    }
+
+
+                </ul>
+       
+        </div>
+
+            </div>
+    }
+        </div>
+    </div>
+</div>
+        </div>
+
+        </div>

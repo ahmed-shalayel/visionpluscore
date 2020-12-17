@@ -1,0 +1,84 @@
+﻿@model IEnumerable<HelpDesk.Data.ViewModel.DepartmentViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-custom gutter-b example example-compact">
+            <div class="card-header">
+                <h3 class="card-title">All Department!</h3>
+                <div class="card-toolbar">
+                    <div class="example-tools justify-content-center">
+                        <a class="btn btn-primary" href="~/Department/Create">Add New</a>
+      
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div id="kt_datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+
+                    @if (Model.Any())
+                    {
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered table-checkable dataTable no-footer dtr-inline">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col">Id</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Admin Name</th>
+                                            <th scope="col">Operation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var department in Model)
+                                        {
+                                            <tr>
+
+                                                <th scope="row">
+                                                    <div class="media align-items-center">
+
+                                                        <div class="media-body">
+                                                            <span class="mb-0 text-sm">@department.Id</span>
+                                                        </div>
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <span class="mb-0 text-sm">@department.Name</span>
+                                                </td>
+                                                <td>
+                                                    <span class="mb-0 text-sm">@department.Description</span>
+
+                                                <td>
+                                                    <span class="mb-0 text-sm">@department.AdminName</span>
+                                                </td>
+
+                                                <td>
+                                                            <a class="btn btn-warning" href="~/Department/Edit/@department.Id">Edit</a>
+                                                            <a class="btn btn-danger" href="~/Department/Delete/@department.Id">Delete</a>
+                                                </td>
+                                            </tr>
+                                        }
+
+
+                                    </tbody>
+                                </table>
+
+                        </div>
+                    
+                </div>
+                    }
+            </div>
+        </div>
+    </div>
+
+</div>
+    </div>
+
+

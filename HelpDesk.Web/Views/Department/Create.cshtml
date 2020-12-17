@@ -1,0 +1,55 @@
+﻿@model HelpDesk.Data.Dto.DepartmentDto
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+<div class="col-md-10">
+    <!--begin::Card-->
+    <div class="card card-custom gutter-b example example-compact">
+        <div class="card-header">
+            <h3 class="card-title">Add  Department</h3>
+      
+        </div>
+        <!--begin::Form-->
+        <form asp-action="Create" method="post">
+            <div class="card-body">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AdminId" class="control-label"></label>
+                    <select asp-items="@ViewBag.admins" asp-for="AdminId" class="form-control"> </select>
+                    <span asp-validation-for="AdminId" class="text-danger"></span>
+                </div>
+
+
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                <button type="reset" class="btn btn-secondary">Cancel</button>
+            </div>
+        </form>
+        <!--end::Form-->
+    </div>
+
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

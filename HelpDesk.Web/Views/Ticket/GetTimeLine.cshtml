@@ -1,0 +1,51 @@
+﻿@model IEnumerable<HelpDesk.Data.ViewModel.TimeLineViewModel>
+
+@{
+    ViewData["Title"] = "GetTimeLine";
+}
+
+
+
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-custom gutter-b example example-compact">
+            <div class="card-header">
+                <h3 class="card-title">Time Line</h3>
+               
+            </div>
+
+            <div class="card-body">
+                <div class="example example-basic">
+                    <div class="example-preview">
+                        <!--begin::Timeline-->
+                        <div class="timeline timeline-1">
+                            <div class="timeline-sep bg-primary-opacity-20"></div>
+
+                            @foreach (var t in Model)
+                            {
+                                <div class="timeline-item">
+                                    <div class="timeline-label">@t.ChangeAt</div>
+                                    <div class="timeline-badge">
+                                        <i class="flaticon2-image-file text-primary"></i>
+                                    </div>
+                                    <div class="timeline-content text-muted font-weight-normal">
+                                        @t.New
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <!--end::Timeline-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
